@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Horn OK Please: a friend challenged you!</title>
+<meta name="description" content="A friend challenged you to beat their Daily Load in Horn OK Please.">
+<meta property="og:title" content="Horn OK Please: can you beat my Daily Load?">
+<meta property="og:description" content="Stack the truck, honk to deliver, don't let it fall off. Free on Google Play.">
+<style>
+  /* Put this page next to privacy-policy.html on the website (GitHub Pages). The game's share links point here:
+     challenge.html?dl=<Daily Load number>&r=<rows>. On an Android phone it opens the game if it is installed, otherwise the Play Store. */
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(#FFD36E,#FF9A5C 60%,#F06292);
+    font-family:"Baloo 2",system-ui,sans-serif;color:#2B1B4D;text-align:center}
+  .card{background:#FFF3D6;border:4px solid #2B1B4D;border-radius:24px;box-shadow:0 8px 0 #2B1B4D;padding:24px 22px;margin:20px;max-width:360px}
+  .sign{display:inline-block;border:6px solid #FFB300;outline:3px solid #E53935;outline-offset:-10px;border-radius:18px;padding:8px 18px;font-weight:800;font-size:28px;letter-spacing:.5px}
+  .rows{font-size:64px;font-weight:800;color:#E53935;line-height:1;margin:16px 0 4px}
+  p{font-size:18px;line-height:1.4;margin:8px 0}
+  a.go{display:block;margin:18px 0 8px;padding:14px;background:#E53935;color:#FFF3D6;border:3px solid #2B1B4D;border-radius:14px;font-weight:800;font-size:20px;text-decoration:none;box-shadow:0 5px 0 #2B1B4D}
+  a.store{color:#2B1B4D;font-size:15px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="sign">HORN OK PLEASE</div>
+  <div class="rows" id="rows">?</div>
+  <p id="line">A friend challenged you to today's Daily Load.</p>
+  <p>Everyone gets the same load each day. Stack it, honk to deliver, and don't let it fall off!</p>
+  <a class="go" id="go" href="#">TAKE THEM ON</a>
+  <a class="store" id="store" href="#">Get Horn OK Please free on Google Play</a>
+</div>
+<script>
+  var PKG = 'com.vohraapps.hornokplease', SCHEME = 'hornokplease';
+  var STORE = 'https://play.google.com/store/apps/details?id=' + PKG;
+  var q = new URLSearchParams(location.search), dl = parseInt(q.get('dl'), 10), r = parseInt(q.get('r'), 10);
+  var ok = dl > 0 && r >= 0 && r < 100000, params = ok ? 'dl=' + dl + '&r=' + r : '';
+  if (ok) {
+    document.getElementById('rows').textContent = r + (r === 1 ? ' row' : ' rows');
+    document.getElementById('line').textContent = 'Your friend delivered ' + r + (r === 1 ? ' row' : ' rows') + ' in Daily Load #' + dl + '. Beat that.';
+  }
+  // Android: an intent link opens the game when it is installed, and the Play Store when it is not
+  var android = /Android/i.test(navigator.userAgent);
+  var open = android ? 'intent://open' + (params ? '?' + params : '') + '#Intent;scheme=' + SCHEME + ';package=' + PKG + ';S.browser_fallback_url=' + encodeURIComponent(STORE) + ';end' : STORE;
+  document.getElementById('go').href = open;
+  document.getElementById('store').href = STORE;
+</script>
+</body>
+</html>
