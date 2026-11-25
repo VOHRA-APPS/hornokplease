@@ -34,6 +34,11 @@
   var STORE = 'https://play.google.com/store/apps/details?id=' + PKG;
   var q = new URLSearchParams(location.search), dl = parseInt(q.get('dl'), 10), r = parseInt(q.get('r'), 10);
   var ok = dl > 0 && r >= 0 && r < 100000, params = ok ? 'dl=' + dl + '&r=' + r : '';
+  // 1.0.70: a Classic round's challenge: cr = rows, ct = city
+  var cr = parseInt(q.get('cr'), 10), ct = String(q.get('ct') || '').replace(/[^a-z]/g, '').slice(0, 20);
+  if (cr > 0 && cr < 100000) { params = 'cr=' + cr + (ct ? '&ct=' + ct : ''); ok = false;
+    document.getElementById('rows').textContent = cr + (cr === 1 ? ' row' : ' rows');
+    document.getElementById('line').textContent = 'Your friend delivered ' + cr + (cr === 1 ? ' row' : ' rows') + ' in one round' + (ct ? ' in ' + ct.charAt(0).toUpperCase() + ct.slice(1) : '') + '. Beat that.'; }
   if (ok) {
     document.getElementById('rows').textContent = r + (r === 1 ? ' row' : ' rows');
     document.getElementById('line').textContent = 'Your friend delivered ' + r + (r === 1 ? ' row' : ' rows') + ' in Daily Load #' + dl + '. Beat that.';
