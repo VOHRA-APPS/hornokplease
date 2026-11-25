@@ -25,7 +25,7 @@
   <div class="sign">HORN OK PLEASE</div>
   <div class="rows" id="rows">?</div>
   <p id="line">A friend challenged you to today's Daily Load.</p>
-  <p>Everyone gets the same load each day. Stack it, honk to deliver, and don't let it fall off!</p>
+  <p id="how">Everyone gets the same load each day. Stack it, honk to deliver, and don't let it fall off!</p>
   <a class="go" id="go" href="#">TAKE THEM ON</a>
   <a class="store" id="store" href="#">Get Horn OK Please free on Google Play</a>
 </div>
@@ -38,9 +38,11 @@
   var cr = parseInt(q.get('cr'), 10), ct = String(q.get('ct') || '').replace(/[^a-z]/g, '').slice(0, 20);
   if (cr > 0 && cr < 100000) { params = 'cr=' + cr + (ct ? '&ct=' + ct : ''); ok = false;
     document.getElementById('rows').textContent = cr + (cr === 1 ? ' row' : ' rows');
+    document.getElementById('how').textContent = 'Stack the cargo on your truck, honk to deliver, and don\'t let it fall off!';
     document.getElementById('line').textContent = 'Your friend delivered ' + cr + (cr === 1 ? ' row' : ' rows') + ' in one round' + (ct ? ' in ' + ct.charAt(0).toUpperCase() + ct.slice(1) : '') + '. Beat that.'; }
   if (ok) {
     document.getElementById('rows').textContent = r + (r === 1 ? ' row' : ' rows');
+    document.getElementById('how').textContent = 'Stack the cargo on your truck, honk to deliver, and don\'t let it fall off!';
     document.getElementById('line').textContent = 'Your friend delivered ' + r + (r === 1 ? ' row' : ' rows') + ' in Daily Load #' + dl + '. Beat that.';
   }
   // Android: an intent link opens the game when it is installed, and the Play Store when it is not
